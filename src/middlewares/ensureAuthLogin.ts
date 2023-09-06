@@ -16,8 +16,8 @@ export const ensureAuthLogin = async (req: Request, res: Response, next: NextFun
         const key = env.JWT_SECRET
 
         const resToken = verify(token, key) as {id: string, permissao: string, id_usuario: string}
-        req.body.idSessao = resToken.id
-        req.body.permissaoUsuario = resToken.permissao
+        req.body.id_sessao = resToken.id
+        req.body.permissao_usuario = resToken.permissao
         req.body.id_usuario = resToken.id_usuario
         next()
     } catch {

@@ -3,12 +3,30 @@ import { CreateUsuarioController } from "../modules/usuario/createUsuario/Create
 import { GetUsuarioByIdController } from "../modules/usuario/getUsuarioById/GetUsuarioByIdController"
 import { ensureAuthPermissao } from "../middlewares/ensureAuthPermissao"
 import { DeleteUsuarioController } from "../modules/usuario/deleteUsuario/DeleteUsuarioController"
+import { EditUsuarioController } from "../modules/usuario/editUsuario/EditUsuarioController"
+import { GetMeController } from "../modules/usuario/getMe/GetMeController"
+import { EditSenhaController } from "../modules/usuario/editSenha/EditSenhaController"
 
 export const usuarioRouter = Router()
 
 const createUsuarioController = new CreateUsuarioController
 const getUsuarioByIdController = new GetUsuarioByIdController
-const deleteUsuarioCOntroller = new DeleteUsuarioController
+const deleteUsuarioController = new DeleteUsuarioController
+const editUsuarioController = new EditUsuarioController
+const getMeController = new GetMeController
+const editSenhaController = new EditSenhaController
+
+usuarioRouter.put('/update', (req, res, next) => {
+    editUsuarioController.handle(req, res, next)
+})
+
+usuarioRouter.get('/get-me', (req, res, next) => {
+    getMeController.handle(req, res, next)
+})
+
+usuarioRouter.post('/update/password', (req, res, next) => {
+    editSenhaController.handle(req, res, next)
+})
 
 usuarioRouter.use(ensureAuthPermissao('ADMINISTRADOR'))
 
@@ -21,5 +39,5 @@ usuarioRouter.get('/get/:id', (req, res, next) => {
 })
 
 usuarioRouter.delete('/delete/:id', (req, res, next) => {
-    deleteUsuarioCOntroller.handle(req, res, next)
+    deleteUsuarioController.handle(req, res, next)
 })

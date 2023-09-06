@@ -3,9 +3,9 @@ import { AppError } from "../errors/AppError"
 
 export const ensureAuthPermissao = (permissaoRequired: string) => {
     return async (req: Request, _res: Response, next: NextFunction) => {
-        const { permissaoUsuario } = req.body
-
-        if (permissaoUsuario !== permissaoRequired) {
+        const { permissao_usuario } = req.body
+        
+        if (permissao_usuario !== permissaoRequired) {
             throw new AppError('Permissão negada para realizar ação exigida!', 401)
         }
 
