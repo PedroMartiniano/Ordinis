@@ -15,12 +15,13 @@ export const ensureAuthLogin = async (req: Request, res: Response, next: NextFun
     try {
         const key = env.JWT_SECRET
 
-        const resToken = verify(token, key) as {id: string, permissao: string}
-        req.body.id = resToken.id
-        req.body.permissao = resToken.permissao
+        const resToken = verify(token, key) as {id: string, permissao: string, id_usuario: string}
+        req.body.idSessao = resToken.id
+        req.body.permissaoUsuario = resToken.permissao
+        req.body.id_usuario = resToken.id_usuario
         next()
     } catch {
-        throw new AppError('Algo deu errado com o login!', 401)
+        throw new AppError('Token inválido!', 401)
     }
     
 }

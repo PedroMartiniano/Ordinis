@@ -6,7 +6,7 @@ import { sign } from "jsonwebtoken";
 export class AuthUsuarioUseCase {
     async execute(usuario: UsuarioLogin) {
         try {
-            const { id, senha, hashSenha, permissao } = usuario
+            const { id, senha, hashSenha, permissao, id_usuario } = usuario
 
             const isPasswordCorrect = await compare(senha, hashSenha)
 
@@ -18,7 +18,7 @@ export class AuthUsuarioUseCase {
 
             const key = env.JWT_SECRET
 
-            const token = sign({id, permissao}, key, {expiresIn: '2d'})
+            const token = sign({id, permissao, id_usuario}, key, {expiresIn: '2d'})
 
             return ({
                 success: true,

@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express"
 import { AppError } from "../../../errors/AppError"
 import { z } from "zod"
-import { GetUsuarioByEmailUseCase } from "../getUsuarioByEmail/GetUsuarioByEmailUseCase"
+import { GetSessaoByEmailUseCase } from "../getUsuarioByEmail/GetUsuarioByEmailUseCase"
 import { GetUsuarioByCpfUseCase } from "../getUsuarioByCpf/GetUsuarioByCpfUseCase"
 import { CreateUsuarioUseCase } from "./CreateUsuarioUseCase"
+import { CreateSessaoUseCase } from "../../sessao/createSessao/CreateSessaoUseCase"
 
 export class CreateUsuarioController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -24,10 +25,10 @@ export class CreateUsuarioController {
 
         const { nome, sobrenome, permissao, cpf, email, senha } = usuarioBody.data
 
-        const getUsuarioByEmail = new GetUsuarioByEmailUseCase
-        const isEmailExists = await getUsuarioByEmail.execute(email)
+        const getSessaoByEmail = new GetSessaoByEmailUseCase
+        const isEmailExists = await getSessaoByEmail.execute(email)
 
-        if(isEmailExists){
+        if (isEmailExists) {
             return next(new AppError('Email já cadastrado!'))
         }
 
@@ -39,12 +40,19 @@ export class CreateUsuarioController {
         }
 
         const createUsuarioUseCase = new CreateUsuarioUseCase
-        const usuario = await createUsuarioUseCase.execute({ nome, sobrenome, permissao, cpf, email, senha })
+        const usuario = await createUsuarioUseCase.execute({ nome, sobrenome, permissao, cpf })
 
         if (!usuario) {
             return next(new AppError('Algo deu errado, tente novamente!', 500))
         }
 
-        return res.status(201).send({ success: true, message: "Usuário criado com sucesso!" })
+        const createSessaoUseCase = new CreateSessaoUseCase
+        const isSessaoCreated = await createSessaoUseCase.execute({ email, senha, id_usuario: usuario.id })
+
+        if (!isSessaoCreated) {
+            return next(new AppError('Algo deu errado, tente novamente!', 500))
+        }
+
+        return res.status(201).send({ success: true, data: usuario })
     }
 }

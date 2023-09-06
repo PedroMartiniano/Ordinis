@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
-import { AppError } from "../../../errors/AppError";
-import { GetUsuarioByEmailUseCase } from "../getUsuarioByEmail/GetUsuarioByEmailUseCase";
 import { AuthUsuarioUseCase } from "./AuthUsuarioUseCase";
+import { GetSessaoByEmailUseCase } from "../../usuario/getUsuarioByEmail/GetUsuarioByEmailUseCase";
+import { GetUsuarioByIdUseCase } from "../../usuario/getUsuarioById/GetUsuarioByIdUseCase";
 
 export class AuthUsuarioController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -22,17 +22,27 @@ export class AuthUsuarioController {
 
         const { email, senha } = authBody.data
 
-        const getUsuarioByEmail = new GetUsuarioByEmailUseCase
-        const usuario = await getUsuarioByEmail.execute(email)
+        const getSessaoByEmail = new GetSessaoByEmailUseCase
+        const sessao = await getSessaoByEmail.execute(email)
 
-        if (!usuario) {
+        if (!sessao) {
             return res.status(400).json({
                 success: false,
                 message: "Email ou senha incorretos."
             })
         }
 
-        if (!usuario.status) {
+        if (sessao.status === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Conta desativada."
+            })
+        }
+
+        const getUsuarioById = new GetUsuarioByIdUseCase
+        const usuario = await getUsuarioById.execute(sessao.id_usuario)
+
+        if (!usuario) {
             return res.status(400).json({
                 success: false,
                 message: "Conta desativada."
@@ -40,7 +50,7 @@ export class AuthUsuarioController {
         }
 
         const authUsuarioUseCase = new AuthUsuarioUseCase
-        const auth = await authUsuarioUseCase.execute({ id: usuario.id, senha, hashSenha: usuario.senha, permissao: usuario.permissao })
+        const auth = await authUsuarioUseCase.execute({ id: sessao.id, senha, hashSenha: sessao.senha, permissao: usuario.permissao, id_usuario: usuario.id })
 
         if (!auth.success) {
             return res.status(400).json({

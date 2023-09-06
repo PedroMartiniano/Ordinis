@@ -1,16 +1,16 @@
-import { Usuario } from "@prisma/client";
+import { Sessao } from "@prisma/client";
 import { prisma } from "../../../lib/prisma";
 
-export class GetUsuarioByEmailUseCase {
-    async execute(email: string): Promise<Usuario | null> {
+export class GetSessaoByEmailUseCase {
+    async execute(email: string): Promise<Sessao | null> {
         try {
-            const usuario = await prisma.usuario.findUnique({
+            const sessao = await prisma.sessao.findUnique({
                 where: {
                     email
                 }
             })
 
-            return usuario
+            return sessao
         } catch {
             return null
         }

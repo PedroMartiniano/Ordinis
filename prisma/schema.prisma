@@ -20,13 +20,22 @@ model Usuario {
   nome      String
   sobrenome String
   permissao Permissao
-  email     String    @unique
-  senha     String
   cpf       String    @unique
   status    Int       @default(1)
 
+  Sessao      Sessao[]
   Patrimonios Patrimonio[]
   manutencoes Manutencao[]
+}
+
+model Sessao {
+  id         String @id @default(uuid())
+  email      String @unique
+  senha      String
+  id_usuario String
+  status     Int    @default(1)
+
+  Usuario Usuario @relation(fields: [id_usuario], references: [id])
 }
 
 enum Estado_Patrimonio {
