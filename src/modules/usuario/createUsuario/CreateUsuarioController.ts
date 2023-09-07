@@ -4,7 +4,6 @@ import { z } from "zod"
 import { GetSessaoByEmailUseCase } from "../getUsuarioByEmail/GetUsuarioByEmailUseCase"
 import { GetUsuarioByCpfUseCase } from "../getUsuarioByCpf/GetUsuarioByCpfUseCase"
 import { CreateUsuarioUseCase } from "./CreateUsuarioUseCase"
-import { CreateSessaoUseCase } from "../../sessao/createSessao/CreateSessaoUseCase"
 
 export class CreateUsuarioController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -40,16 +39,9 @@ export class CreateUsuarioController {
         }
 
         const createUsuarioUseCase = new CreateUsuarioUseCase
-        const usuario = await createUsuarioUseCase.execute({ nome, sobrenome, permissao, cpf })
+        const usuario = await createUsuarioUseCase.execute({ nome, sobrenome, permissao, cpf, email, senha })
 
         if (!usuario) {
-            return next(new AppError('Algo deu errado, tente novamente!', 500))
-        }
-
-        const createSessaoUseCase = new CreateSessaoUseCase
-        const isSessaoCreated = await createSessaoUseCase.execute({ email, senha, id_usuario: usuario.id })
-
-        if (!isSessaoCreated) {
             return next(new AppError('Algo deu errado, tente novamente!', 500))
         }
 

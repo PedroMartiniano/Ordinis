@@ -4,6 +4,8 @@ import { AppError } from "../../../errors/AppError";
 import { GetPatrimonioByPlacaUseCase } from "../getPatrimonioByPlaca/GetPatrimonioByPlacaUseCase";
 import { CreatePatrimonioUseCase } from "./CreatePatrimonioUseCase";
 import { GetUsuarioByIdUseCase } from "../../usuario/getUsuarioById/GetUsuarioByIdUseCase";
+import { GetLocByIdUseCase } from "../../localizacao/getLocalizacaoById/GetLocByIdUseCase";
+import { GetCategoriaByIdUseCase } from "../../categoria/getCategoriaById/GetCategoriaByIdUseCase";
 
 export class CreatePatrimonioController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -56,6 +58,20 @@ export class CreatePatrimonioController {
         if (usuario.status === 0) {
             return next(new AppError('Usuario desativado.'))
 
+        }
+
+        const getlocalizacaoById = new GetLocByIdUseCase
+        const localizacao = await getlocalizacaoById.execute(id_localizacao)
+
+        if (!localizacao) {
+            return next(new AppError('Localização inválida.'))
+        }
+
+        const getCategoriaById = new GetCategoriaByIdUseCase
+        const categoria = await getCategoriaById.execute(id_categoria)
+
+        if (!categoria) {
+            return next(new AppError('Categoria Inválida.'))
         }
 
         const data_entrada = new Date()

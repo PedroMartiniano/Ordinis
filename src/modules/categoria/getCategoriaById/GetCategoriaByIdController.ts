@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 import { AppError } from "../../../errors/AppError";
+import { GetCategoriaByIdUseCase } from "./GetCategoriaByIdUseCase";
 
 export class GetCategoriaByIdController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -15,5 +16,10 @@ export class GetCategoriaByIdController {
         }
 
         const { id } = idBody.data
+
+        const getCategoriaById = new GetCategoriaByIdUseCase
+        const categoria = await getCategoriaById.execute(id)
+
+        return res.status(200).json(categoria)
     }
 }
