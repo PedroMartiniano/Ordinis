@@ -1,9 +1,9 @@
 import { Usuario } from "@prisma/client";
-import { UsuarioEdit } from "../../../types/usuario-edit";
+import { UsuarioEditProps } from "../../../types/usuario-edit";
 import { prisma } from "../../../lib/prisma";
 
 export class EditUsuarioUseCase {
-    async execute(usuario: UsuarioEdit): Promise<Usuario | null> {
+    async execute(usuario: UsuarioEditProps): Promise<Usuario | null> {
         try {
             const { nome, sobrenome, cpf, id_usuario } = usuario
 

@@ -1,4 +1,4 @@
-export interface UsuarioEdit {
+export interface UsuarioEditProps {
     nome: string,
     sobrenome: string,
     cpf: string,

@@ -1,10 +1,10 @@
 import { compare } from "bcrypt";
-import { UsuarioLogin } from "../../../types/usuario-login";
+import { UsuarioLoginProps } from "../../../types/usuario-login";
 import { env } from "../../../env";
 import { sign } from "jsonwebtoken";
 
 export class AuthUsuarioUseCase {
-    async execute(usuario: UsuarioLogin) {
+    async execute(usuario: UsuarioLoginProps) {
         try {
             const { id, senha, hashSenha, permissao, id_usuario } = usuario
 

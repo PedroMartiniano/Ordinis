@@ -60,9 +60,9 @@ model Patrimonio {
   origem        Origem_Patrimonio
   status        Int               @default(1)
   data_entrada  DateTime
-  data_saida    DateTime
+  data_saida    DateTime?
   resp_entrega  String
-  resp_retirada String
+  resp_retirada String?
 
   id_localizacao String
   id_categoria   String
@@ -93,7 +93,7 @@ model Manutencao {
   id          String   @id @default(uuid())
   descricao   String
   data_inicio DateTime
-  data_fim    DateTime
+  data_fim    DateTime?
   valor       Float
   status      Int      @default(1)
 
