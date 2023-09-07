@@ -1,8 +1,11 @@
 import { PrismaClient } from "@prisma/client"
+import { hash } from "bcrypt"
 
 const prisma = new PrismaClient()
 
 async function main() {
+    const senha = await hash('123456', 4)
+    
     const adm = await prisma.usuario.upsert({
         where: {
             cpf: '12345678919'
@@ -16,7 +19,7 @@ async function main() {
             Sessao: {
                 create: {
                     email: 'adm@seed.com',
-                    senha: '123456',  
+                    senha,
                 }
             }
         }
@@ -63,7 +66,7 @@ async function main() {
 }
 
 main()
-    .then( async () => {
+    .then(async () => {
         await prisma.$disconnect()
     })
     .catch(async (e) => {
