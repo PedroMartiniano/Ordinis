@@ -15,7 +15,7 @@ export class CreatePatrimonioController {
             estado: z.enum(['EXECELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO']),
             valor: z.number(),
             origem: z.enum(['PREFEITURA', 'NV']),
-            data_entrada: z.date(),
+            // data_entrada: z.date(),
             resp_entrega: z.string(),
             id_localizacao: z.string(),
             id_categoria: z.string(),
@@ -34,7 +34,7 @@ export class CreatePatrimonioController {
             estado,
             valor,
             origem,
-            data_entrada,
+            // data_entrada,
             resp_entrega,
             id_localizacao,
             id_categoria,
@@ -73,6 +73,8 @@ export class CreatePatrimonioController {
         if (!categoria) {
             return next(new AppError('Categoria Inválida.'))
         }
+
+        const data_entrada = new Date()
 
         const createPatrimonio = new CreatePatrimonioUseCase
         const patrimonio = await createPatrimonio.execute({
