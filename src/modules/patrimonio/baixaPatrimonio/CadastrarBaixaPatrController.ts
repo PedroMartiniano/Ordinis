@@ -7,7 +7,7 @@ import { CadastrarBaixaPatrUseCase } from "./CadastrarBaixaPatrUseCase";
 export class CadastrarBaixaPatrController {
     async handle(req: Request, res: Response, next: NextFunction) {
         const baixaPatrSchema = z.object({
-            // data_saida: z.date(),
+            data_saida: z.date(),
             resp_retirada: z.string()
         })
 
@@ -26,7 +26,7 @@ export class CadastrarBaixaPatrController {
             return next(new AppError('Informação id_patrimonio incorreta.'))
         }
 
-        const { resp_retirada } = baixaPatrBody.data
+        const { resp_retirada, data_saida } = baixaPatrBody.data
         const { id } = idPatrBody.data
 
         const getPatrimonioById = new GetPatrimonioByIdUseCase
@@ -39,8 +39,6 @@ export class CadastrarBaixaPatrController {
         if (patrimonioId.data_saida) {
             return next(new AppError('Patrimônio já foi dado baixa!'))
         }
-
-        const data_saida = new Date()
 
         const cadastrarBaixaPatr = new CadastrarBaixaPatrUseCase
         const patrimonio = await cadastrarBaixaPatr.execute({ id, data_saida, resp_retirada })
