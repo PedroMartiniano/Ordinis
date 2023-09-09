@@ -7,7 +7,7 @@ import { CadastrarBaixaPatrUseCase } from "./CadastrarBaixaPatrUseCase";
 export class CadastrarBaixaPatrController {
     async handle(req: Request, res: Response, next: NextFunction) {
         const baixaPatrSchema = z.object({
-            data_saida: z.date().default(new Date()),
+            data_saida: z.coerce.date(),
             resp_retirada: z.string()
         })
 

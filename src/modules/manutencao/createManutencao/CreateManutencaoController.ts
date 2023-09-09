@@ -9,7 +9,7 @@ export class CreateManutencaoController {
     async handle(req: Request, res: Response, next: NextFunction) {
         const manutencaoSchema = z.object({
             descricao: z.string(),
-            // data_inicio: z.date(),
+            data_inicio: z.coerce.date(),
             valor: z.number(),
             id_usuario: z.string(),
             id_prestador: z.string()
@@ -30,15 +30,18 @@ export class CreateManutencaoController {
             return next(new AppError('Id Patrimônio faltando.'))
         }
 
-        const { descricao, valor, id_prestador, id_usuario } = req.body
+        const { descricao, data_inicio, valor, id_prestador, id_usuario } = req.body
         const { id_patrimonio } = req.params
-        const data_inicio = new Date()
 
         const getPatrimonioById = new GetPatrimonioByIdUseCase
         const patrimonio = await getPatrimonioById.execute(id_patrimonio)
 
         if (!patrimonio) {
             return next(new AppError('Patrimônio não encontrado.'))
+        }
+
+        if (!patrimonio.status) {
+            return next(new AppError('Impossível registrar manutenção! Patrimônio foi dado baixa.'))
         }
 
         const getPrestadorById = new GetPrestadorByIdUseCase

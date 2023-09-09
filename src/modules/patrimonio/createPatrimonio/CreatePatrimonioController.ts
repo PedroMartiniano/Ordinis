@@ -15,7 +15,7 @@ export class CreatePatrimonioController {
             estado: z.enum(['EXECELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO']),
             valor: z.number(),
             origem: z.enum(['PREFEITURA', 'NV']),
-            data_entrada: z.date().default(new Date()),
+            data_entrada: z.coerce.date(),
             resp_entrega: z.string(),
             id_localizacao: z.string(),
             id_categoria: z.string(),

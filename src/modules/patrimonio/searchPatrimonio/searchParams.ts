@@ -22,18 +22,29 @@ export function searchParams(key: string[], value: any[]) {
                 searchParam.origem = {
                     equals: value[i]
                 }
+                break
+            case 'status':
+                searchParam.status = {
+                    equals: parseInt(value[i])
+                }
+                break
             case 'resp_entrega':
-                searchParam.res_entrega = {
+                searchParam.resp_entrega = {
                     contains: value[i]
                 }
                 break
-            case 'categoria':
-                searchParam.categoria = {
-                    equals: value[i]
+            case 'resp_retirada':
+                searchParam.resp_retirada = {
+                    contains: value[i]
                 }
                 break
             case 'localizacao':
                 searchParam.localizacao = {
+                    equals: value[i]
+                }
+                break
+            case 'categoria':
+                searchParam.categoria = {
                     equals: value[i]
                 }
                 break
