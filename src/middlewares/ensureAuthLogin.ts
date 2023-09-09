@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError";
 import { env } from "../env";
 import { verify } from "jsonwebtoken";
-import { GetUsuarioByIdUseCase } from "../modules/usuario/getUsuarioById/GetUsuarioByIdUseCase";
 
 export const ensureAuthLogin = async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization
@@ -25,5 +24,4 @@ export const ensureAuthLogin = async (req: Request, res: Response, next: NextFun
     } catch {
         throw new AppError('Token inválido!', 401)
     }
-    
 }

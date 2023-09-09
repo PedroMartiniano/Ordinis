@@ -3,7 +3,7 @@ import { CreateManutencaoController } from "../modules/manutencao/createManutenc
 import { GetManutencaoByIdController } from "../modules/manutencao/getManutencaoById/GetManutencaoByIdController";
 import { GetManutencaoByPatrController } from "../modules/manutencao/GetManutencaoByPatr/GetManutencaoByPatrController";
 import { GetManutencaoByPrestadorController } from "../modules/manutencao/getManutencaoByPrestador/GetManutencaoByPrestadoController";
-import { BaixaManutencaoController } from "../modules/manutencao/baixaManutencao/baixaManutencaoController";
+import { BaixaManutencaoController } from "../modules/manutencao/baixaManutencao/BaixaManutencaoController";
 
 export const manutencaoRoutes = Router()
 
