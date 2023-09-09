@@ -5,6 +5,8 @@ import { ensureAuthLogin } from "../middlewares/ensureAuthLogin"
 import { patrimonioRoutes } from "./patrimonio.routes"
 import { localizacaoRoutes } from "./localizacao.routes"
 import { categoriaRoutes } from "./categoria.routes"
+import { manutencaoRoutes } from "./manutencao.routes"
+import { prestadorRoutes } from "./prestador.routes"
 
 export const router = Router()
 
@@ -12,6 +14,8 @@ router.use('/login', loginRouter)
 
 router.use(ensureAuthLogin)
 router.use('/usuario', usuarioRouter)
-router.use('/patr', patrimonioRoutes)
+router.use('/patrimonio', patrimonioRoutes)
 router.use('/categoria', categoriaRoutes)
 router.use('/localizacao', localizacaoRoutes)
+router.use('/manutencao', manutencaoRoutes)
+router.use('/prestador', prestadorRoutes)
