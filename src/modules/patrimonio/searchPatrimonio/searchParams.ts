@@ -39,12 +39,12 @@ export function searchParams(key: string[], value: any[]) {
                 }
                 break
             case 'localizacao':
-                searchParam.localizacao = {
+                searchParam.id_localizacao = {
                     equals: value[i]
                 }
                 break
             case 'categoria':
-                searchParam.categoria = {
+                searchParam.id_categoria = {
                     equals: value[i]
                 }
                 break
