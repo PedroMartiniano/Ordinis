@@ -4,6 +4,7 @@ import { GetManutencaoByIdController } from "../modules/manutencao/getManutencao
 import { GetManutencaoByPatrController } from "../modules/manutencao/GetManutencaoByPatr/GetManutencaoByPatrController";
 import { GetManutencaoByPrestadorController } from "../modules/manutencao/getManutencaoByPrestador/GetManutencaoByPrestadoController";
 import { BaixaManutencaoController } from "../modules/manutencao/baixaManutencao/BaixaManutencaoController";
+import { DeleteManutencaoController } from "../modules/manutencao/deleteManutencao/DeleteManutencaoController";
 
 export const manutencaoRoutes = Router()
 
@@ -12,6 +13,7 @@ const getManutencaoByIdController = new GetManutencaoByIdController
 const getManutecoesByIdPatrController = new GetManutencaoByPatrController
 const getManutencaoByPrestadorController = new GetManutencaoByPrestadorController
 const baixaManutencaoController = new BaixaManutencaoController
+const deleteManutencaoController = new DeleteManutencaoController
 
 manutencaoRoutes.post('/create/:id_patrimonio', (req, res, next) => {
     createManutencaoController.handle(req, res, next)
@@ -31,4 +33,8 @@ manutencaoRoutes.get('/get/patr/:id_patrimonio', (req, res, next) => {
 
 manutencaoRoutes.get('/get/prestador/:id_prestador', (req, res, next) => {
     getManutencaoByPrestadorController.handle(req, res, next)
+})
+
+manutencaoRoutes.delete('/delete/:id', (req, res, next) => {
+    deleteManutencaoController.handle(req, res, next)
 })
