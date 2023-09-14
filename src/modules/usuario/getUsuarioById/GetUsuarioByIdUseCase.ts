@@ -8,10 +8,31 @@ export class GetUsuarioByIdUseCase {
             const usuario = await prisma.usuario.findUnique({
                 where: {
                     id
+                },
+                include: {
+                    Sessao: {
+                        select: {
+                            email: true
+                        }
+                    }
                 }
             })
 
-            return usuario
+            if (!usuario) {
+                return null
+            }
+
+            const usuarioModified = {
+                id: usuario.id,
+                nome: usuario.nome,
+                sobrenome: usuario.sobrenome,
+                permissao: usuario.permissao,
+                cpf: usuario.cpf,
+                status: usuario.status,
+                email: usuario.Sessao[0].email
+            }
+
+            return usuarioModified
         } catch {
             return null
         }
