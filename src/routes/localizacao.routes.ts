@@ -3,6 +3,7 @@ import { CreateLocalizacaoController } from "../modules/localizacao/createLocali
 import { GetLocByIdController } from "../modules/localizacao/getLocalizacaoById/GetLocByIdController";
 import { GetAllLocalizacoesController } from "../modules/localizacao/getAllLocalizacoes/GetAllLocalizacoesController";
 import { DeleteLocalizacaoController } from "../modules/localizacao/deleteLocalizacao/DeleteLocalizacaoController";
+import { ensureAuthPermissao } from "../middlewares/ensureAuthPermissao";
 
 export const localizacaoRoutes = Router()
 
@@ -11,16 +12,18 @@ const getLocByIdController = new GetLocByIdController
 const getAllLocalizacoesController = new GetAllLocalizacoesController
 const deleteLocalizacaoController = new DeleteLocalizacaoController
 
-localizacaoRoutes.post('/create', (req, res, next) => {
-    createLocalizacaoController.handle(req, res, next)
-})
-
 localizacaoRoutes.get('/get/:id', (req, res, next) => {
     getLocByIdController.handle(req, res, next)
 })
 
 localizacaoRoutes.get('/get-all', (req, res, next) => {
     getAllLocalizacoesController.handle(req, res, next)
+})
+
+localizacaoRoutes.use(ensureAuthPermissao('ADMINISTRADOR'))
+
+localizacaoRoutes.post('/create', (req, res, next) => {
+    createLocalizacaoController.handle(req, res, next)
 })
 
 localizacaoRoutes.delete('/delete/:id', (req, res, next) => {

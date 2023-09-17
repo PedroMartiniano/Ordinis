@@ -16,16 +16,12 @@ const editUsuarioController = new EditUsuarioController
 const getMeController = new GetMeController
 const editSenhaController = new EditSenhaController
 
-usuarioRouter.put('/update', (req, res, next) => {
-    editUsuarioController.handle(req, res, next)
-})
-
 usuarioRouter.get('/get-me', (req, res, next) => {
     getMeController.handle(req, res, next)
 })
 
-usuarioRouter.post('/update/password', (req, res, next) => {
-    editSenhaController.handle(req, res, next)
+usuarioRouter.get('/get/:id', (req, res, next) => {
+    getUsuarioByIdController.handle(req, res, next)
 })
 
 usuarioRouter.use(ensureAuthPermissao('ADMINISTRADOR'))
@@ -34,8 +30,12 @@ usuarioRouter.post('/create', (req, res, next) => {
     createUsuarioController.handle(req, res, next)
 })
 
-usuarioRouter.get('/get/:id', (req, res, next) => {
-    getUsuarioByIdController.handle(req, res, next)
+usuarioRouter.post('/update/password', (req, res, next) => {
+    editSenhaController.handle(req, res, next)
+})
+
+usuarioRouter.put('/update', (req, res, next) => {
+    editUsuarioController.handle(req, res, next)
 })
 
 usuarioRouter.delete('/delete/:id', (req, res, next) => {

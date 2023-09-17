@@ -16,7 +16,7 @@ const editPatrimonioController = new EditPatrimonioController
 const getAllPatrimoniosController = new GetAllPatrimoniosController
 const searchPatrimonioController = new SearchPatrimonioController
 
-patrimonioRoutes.post('/create', ensureAuthPermissao('ADMINISTRADOR'), (req, res, next) => {
+patrimonioRoutes.post('/create', (req, res, next) => {
     createPatrimonioController.handle(req, res, next)
 })
 
@@ -32,7 +32,7 @@ patrimonioRoutes.get('/get/:id', (req, res, next) => {
     getPatrimonioByIdController.handle(req, res, next)
 })
 
-patrimonioRoutes.delete('/baixa/:id', ensureAuthPermissao('ADMINISTRADOR'), (req, res, next) => {
+patrimonioRoutes.delete('/baixa/:id', (req, res, next) => {
     cadastrarBaixaPatrController.handle(req, res, next)
 })
 
