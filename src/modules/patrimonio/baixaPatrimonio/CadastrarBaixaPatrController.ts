@@ -40,6 +40,10 @@ export class CadastrarBaixaPatrController {
             return next(new AppError('Patrimônio já foi dado baixa!'))
         }
 
+        if (data_saida < patrimonioId.data_entrada) {
+            return next(new AppError('Data saída menor que data entrada do patrimônio!'))
+        }
+
         const cadastrarBaixaPatr = new CadastrarBaixaPatrUseCase
         const patrimonio = await cadastrarBaixaPatr.execute({ id, data_saida, resp_retirada })
 

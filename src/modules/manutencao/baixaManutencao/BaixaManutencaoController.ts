@@ -39,6 +39,10 @@ export class BaixaManutencaoController {
             return next(new AppError('Manutenção já foi finalizada!'))
         }
 
+        if(data_fim < manutencaoId.data_inicio){
+            return next(new AppError('Data fim da manutenção menor que data início!'))
+        }
+
         const baixaManutencao = new BaixaManutencaoUseCase
         const manutencao = await baixaManutencao.execute(id, data_fim)
 
