@@ -6,6 +6,7 @@ import { CadastrarBaixaPatrController } from "../modules/patrimonio/baixaPatrimo
 import { EditPatrimonioController } from "../modules/patrimonio/editPatrimonio/EditPatrimonioController";
 import { GetAllPatrimoniosController } from "../modules/patrimonio/getAllPatrimonios/GetAllPatrimoniosController";
 import { SearchPatrimonioController } from "../modules/patrimonio/searchPatrimonio/SearchPatrimonioController";
+import { GetPatrByIdEditedController } from "../modules/patrimonio/getPatrimonioByIdEdited/GetPatrimonioByIdEditedController";
 
 export const patrimonioRoutes = Router()
 
@@ -15,6 +16,7 @@ const cadastrarBaixaPatrController = new CadastrarBaixaPatrController
 const editPatrimonioController = new EditPatrimonioController
 const getAllPatrimoniosController = new GetAllPatrimoniosController
 const searchPatrimonioController = new SearchPatrimonioController
+const getPatrByIdEditedController = new GetPatrByIdEditedController
 
 patrimonioRoutes.post('/create', (req, res, next) => {
     createPatrimonioController.handle(req, res, next)
@@ -30,6 +32,10 @@ patrimonioRoutes.get('/get-all', (req, res, next) => {
 
 patrimonioRoutes.get('/get/:id', (req, res, next) => {
     getPatrimonioByIdController.handle(req, res, next)
+})
+
+patrimonioRoutes.get('/get-names/:id', (req, res, next) => {
+    getPatrByIdEditedController.handle(req, res, next)
 })
 
 patrimonioRoutes.delete('/baixa/:id', (req, res, next) => {

@@ -6,6 +6,7 @@ export class SearchPatrimonioUseCase {
         try {
             const patrimonios = await prisma.patrimonio.findMany({
                 where: search
+                
             })
 
             return patrimonios

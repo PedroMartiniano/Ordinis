@@ -20,6 +20,10 @@ export class GetPatrimonioByIdController {
         const getPatrimonioById = new GetPatrimonioByIdUseCase
         const patrimonio = await getPatrimonioById.execute(id)
 
-        return res.status(200).json(patrimonio)
+        if(!patrimonio){
+            return res.status(400).json({success: false, data: patrimonio})
+        }
+
+        return res.status(200).json({success: true, data: patrimonio})
     }
 }

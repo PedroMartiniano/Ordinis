@@ -5,6 +5,14 @@ export class GetAllPatrimoniosController {
     async handle(req: Request, res: Response, next: NextFunction) {
         const patrimonios = await GetAllPatrimoniosUseCase.execute()
 
-        return res.status(200).json(patrimonios)
+        if (!patrimonios) {
+            return res.status(500).json({ success: false })
+        }
+
+        if (!patrimonios[0]) {
+            return res.status(400).json({ success: false, data: patrimonios })
+        }
+
+        return res.status(200).json({ success: true, data: patrimonios })
     }
 }
