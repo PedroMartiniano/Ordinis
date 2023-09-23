@@ -23,6 +23,11 @@ export class SearchPatrimonioController {
             return res.status(400).json({ success: false })
         }
 
+        if (!patrimonios[0]) {
+            return res.status(400).json({ success: false, data: patrimonios })
+        }
+
         return res.status(200).json({ success: true, data: patrimonios })
+
     }
 }
