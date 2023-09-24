@@ -1,8 +1,9 @@
 import { Patrimonio } from "@prisma/client";
 import { prisma } from "../../../lib/prisma";
+import { PatrimonioNamesProps } from "../../../types/patrimonio-names";
 
 export class SearchPatrimonioUseCase {
-    async execute(search: any): Promise<Patrimonio[] | null> {
+    async execute(search: any): Promise<PatrimonioNamesProps[] | null> {
         try {
             const patrimonios = await prisma.patrimonio.findMany({
                 where: search,
@@ -20,11 +21,13 @@ export class SearchPatrimonioUseCase {
                     resp_retirada: true,
                     categoria: {
                         select: {
+                            id: true,
                             descricao: true
                         }
                     },
                     localizacao: {
                         select: {
+                            id: true,
                             descricao: true
                         }
                     },
@@ -32,17 +35,7 @@ export class SearchPatrimonioUseCase {
                 }
             })
 
-            const patrimoniosEdited = patrimonios.map((patr) => {
-                return {
-                    ...patr,
-                    categoria: undefined,
-                    localizacao: undefined,
-                    id_categoria: patr.categoria.descricao,
-                    id_localizacao: patr.localizacao.descricao
-                }
-            })
-
-            return patrimoniosEdited
+            return patrimonios
         } catch {
             return null
         }

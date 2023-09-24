@@ -1,8 +1,9 @@
 import { Patrimonio } from "@prisma/client";
 import { prisma } from "../../../lib/prisma";
+import { PatrimonioNamesProps } from "../../../types/patrimonio-names";
 
 export class GetPatrByIdEditedUseCase {
-    async execute(id: string): Promise<Patrimonio | null> {
+    async execute(id: string): Promise<PatrimonioNamesProps | null> {
         try {
             const patrimonio = await prisma.patrimonio.findUnique({
                 where: {
@@ -22,11 +23,13 @@ export class GetPatrByIdEditedUseCase {
                     resp_retirada: true,
                     categoria: {
                         select: {
+                            id: true,
                             descricao: true
                         }
                     },
                     localizacao: {
                         select: {
+                            id: true,
                             descricao: true
                         }
                     },
@@ -38,16 +41,7 @@ export class GetPatrByIdEditedUseCase {
                 return null
             }
 
-
-            const patrimonioEdited = {
-                ...patrimonio,
-                categoria: undefined,
-                localizacao: undefined,
-                id_categoria: patrimonio.categoria.descricao,
-                id_localizacao: patrimonio.localizacao.descricao
-            }
-
-            return patrimonioEdited
+            return patrimonio
         } catch {
             return null
         }
