@@ -57,7 +57,6 @@ async function main() {
             valor: 799.90,
             origem: "PREFEITURA",
             data_entrada: new Date(),
-            resp_entrega: "joao paulo faleiros",
             id_localizacao: localizacao.id,
             id_categoria: categoria.id,
             id_usuario: adm.id

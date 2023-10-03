@@ -61,7 +61,7 @@ model Patrimonio {
   status        Int               @default(1)
   data_entrada  DateTime
   data_saida    DateTime?
-  resp_entrega  String
+  resp_entrega  String?
   resp_retirada String?
 
   id_localizacao String
