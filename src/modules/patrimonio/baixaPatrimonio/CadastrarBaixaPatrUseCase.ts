@@ -5,7 +5,7 @@ import { PatrimonioBaixaProps } from "../../../types/patrimonio-baixa";
 export class CadastrarBaixaPatrUseCase {
     async execute(patrimonioBaixa: PatrimonioBaixaProps): Promise<Patrimonio | null> {
         try {
-            const { id, data_saida, resp_retirada } = patrimonioBaixa
+            const { id, data_saida, resp_entrega, resp_retirada } = patrimonioBaixa
 
             const patrimonio = await prisma.patrimonio.update({
                 where: {
@@ -13,6 +13,7 @@ export class CadastrarBaixaPatrUseCase {
                 },
                 data: {
                     data_saida,
+                    resp_entrega,
                     resp_retirada,
                     status: 0
                 }

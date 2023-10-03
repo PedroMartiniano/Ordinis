@@ -16,7 +16,6 @@ export class CreatePatrimonioController {
             valor: z.number(),
             origem: z.enum(['PREFEITURA', 'NV']),
             data_entrada: z.coerce.date(),
-            resp_entrega: z.string(),
             id_localizacao: z.string(),
             id_categoria: z.string(),
             id_usuario: z.string()
@@ -35,7 +34,6 @@ export class CreatePatrimonioController {
             valor,
             origem,
             data_entrada,
-            resp_entrega,
             id_localizacao,
             id_categoria,
             id_usuario
@@ -82,7 +80,6 @@ export class CreatePatrimonioController {
             valor,
             origem,
             data_entrada,
-            resp_entrega,
             id_localizacao,
             id_categoria,
             id_usuario

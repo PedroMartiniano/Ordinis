@@ -5,10 +5,21 @@ CREATE TABLE `Usuario` (
     `sobrenome` VARCHAR(191) NOT NULL,
     `permissao` ENUM('ADMINISTRADOR', 'FUNCIONARIO') NOT NULL,
     `cpf` VARCHAR(191) NOT NULL,
-    `email` VARCHAR(191) NOT NULL,
-    `senha` VARCHAR(191) NOT NULL,
     `status` INTEGER NOT NULL DEFAULT 1,
 
+    UNIQUE INDEX `Usuario_cpf_key`(`cpf`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Sessao` (
+    `id` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `senha` VARCHAR(191) NOT NULL,
+    `id_usuario` VARCHAR(191) NOT NULL,
+    `status` INTEGER NOT NULL DEFAULT 1,
+
+    UNIQUE INDEX `Sessao_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -22,9 +33,9 @@ CREATE TABLE `Patrimonio` (
     `origem` ENUM('PREFEITURA', 'NV') NOT NULL,
     `status` INTEGER NOT NULL DEFAULT 1,
     `data_entrada` DATETIME(3) NOT NULL,
-    `data_saida` DATETIME(3) NOT NULL,
-    `resp_entrega` VARCHAR(191) NOT NULL,
-    `resp_retirada` VARCHAR(191) NOT NULL,
+    `data_saida` DATETIME(3) NULL,
+    `resp_entrega` VARCHAR(191) NULL,
+    `resp_retirada` VARCHAR(191) NULL,
     `id_localizacao` VARCHAR(191) NOT NULL,
     `id_categoria` VARCHAR(191) NOT NULL,
     `id_usuario` VARCHAR(191) NOT NULL,
@@ -56,7 +67,7 @@ CREATE TABLE `Manutencao` (
     `id` VARCHAR(191) NOT NULL,
     `descricao` VARCHAR(191) NOT NULL,
     `data_inicio` DATETIME(3) NOT NULL,
-    `data_fim` DATETIME(3) NOT NULL,
+    `data_fim` DATETIME(3) NULL,
     `valor` DOUBLE NOT NULL,
     `status` INTEGER NOT NULL DEFAULT 1,
     `id_patrimonio` VARCHAR(191) NOT NULL,
@@ -79,6 +90,9 @@ CREATE TABLE `Prestador` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Sessao` ADD CONSTRAINT `Sessao_id_usuario_fkey` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Patrimonio` ADD CONSTRAINT `Patrimonio_id_localizacao_fkey` FOREIGN KEY (`id_localizacao`) REFERENCES `Localizacao`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -8,6 +8,7 @@ export class CadastrarBaixaPatrController {
     async handle(req: Request, res: Response, next: NextFunction) {
         const baixaPatrSchema = z.object({
             data_saida: z.coerce.date(),
+            resp_entrega: z.string(),
             resp_retirada: z.string()
         })
 
@@ -26,7 +27,7 @@ export class CadastrarBaixaPatrController {
             return next(new AppError('Informação id_patrimonio incorreta.'))
         }
 
-        const { resp_retirada, data_saida } = baixaPatrBody.data
+        const { resp_entrega, resp_retirada, data_saida } = baixaPatrBody.data
         const { id } = idPatrBody.data
 
         const getPatrimonioById = new GetPatrimonioByIdUseCase
@@ -45,7 +46,7 @@ export class CadastrarBaixaPatrController {
         }
 
         const cadastrarBaixaPatr = new CadastrarBaixaPatrUseCase
-        const patrimonio = await cadastrarBaixaPatr.execute({ id, data_saida, resp_retirada })
+        const patrimonio = await cadastrarBaixaPatr.execute({ id, data_saida, resp_entrega, resp_retirada })
 
         if (!patrimonio) {
             return res.status(400).json({ success: false, message: "Algo deu errado. Tente novamente!" })

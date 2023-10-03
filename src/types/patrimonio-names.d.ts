@@ -8,7 +8,7 @@ export interface PatrimonioNamesProps {
     status: number
     data_entrada: Date
     data_saida: Date | null
-    resp_entrega: string
+    resp_entrega: string | null
     resp_retirada: string | null
     localizacao: {id: string, descricao: string}
     categoria: {id: string, descricao: string}
