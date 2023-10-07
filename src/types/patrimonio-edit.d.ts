@@ -1,7 +1,7 @@
 export interface EditPatrimonioProps {
     placa: string,
     descricao: string,
-    estado: 'EXECELENTE' | 'OTIMO' | 'REGULAR' | 'RUIM' | 'PESSIMO',
+    estado: 'EXCELENTE' | 'OTIMO' | 'REGULAR' | 'RUIM' | 'PESSIMO',
     valor: number,
     origem: 'PREFEITURA' | 'NV',
     id_localizacao: string,

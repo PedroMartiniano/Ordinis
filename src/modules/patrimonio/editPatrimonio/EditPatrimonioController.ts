@@ -10,7 +10,7 @@ export class EditPatrimonioController {
         const editPatrSchema = z.object({
             placa: z.string(),
             descricao: z.string(),
-            estado: z.enum(['EXECELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO']),
+            estado: z.enum(['EXCELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO']),
             valor: z.number(),
             origem: z.enum(['PREFEITURA', 'NV']),
             id_localizacao: z.string(),

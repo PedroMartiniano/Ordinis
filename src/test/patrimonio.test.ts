@@ -17,7 +17,7 @@ describe("Should test all Patrimônio's routes", () => {
         const patrimonio = {
             placa: "PC099",
             descricao: "computador Windows",
-            estado: "EXECELENTE",
+            estado: "EXCELENTE",
             valor: 1999.90,
             origem: "PREFEITURA",
             data_entrada: new Date(),

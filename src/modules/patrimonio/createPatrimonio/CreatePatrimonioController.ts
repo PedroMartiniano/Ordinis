@@ -12,7 +12,7 @@ export class CreatePatrimonioController {
         const patrimonioSchema = z.object({
             placa: z.string(),
             descricao: z.string(),
-            estado: z.enum(['EXECELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO']),
+            estado: z.enum(['EXCELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO']),
             valor: z.number(),
             origem: z.enum(['PREFEITURA', 'NV']),
             data_entrada: z.coerce.date(),
