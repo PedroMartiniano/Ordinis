@@ -2,7 +2,7 @@
 CREATE TYPE "Permissao" AS ENUM ('ADMINISTRADOR', 'FUNCIONARIO');
 
 -- CreateEnum
-CREATE TYPE "Estado_Patrimonio" AS ENUM ('EXECELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO');
+CREATE TYPE "Estado_Patrimonio" AS ENUM ('EXCELENTE', 'OTIMO', 'REGULAR', 'RUIM', 'PESSIMO');
 
 -- CreateEnum
 CREATE TYPE "Origem_Patrimonio" AS ENUM ('PREFEITURA', 'NV');
@@ -41,7 +41,7 @@ CREATE TABLE "Patrimonio" (
     "status" INTEGER NOT NULL DEFAULT 1,
     "data_entrada" TIMESTAMP(3) NOT NULL,
     "data_saida" TIMESTAMP(3),
-    "resp_entrega" TEXT NOT NULL,
+    "resp_entrega" TEXT,
     "resp_retirada" TEXT,
     "id_localizacao" TEXT NOT NULL,
     "id_categoria" TEXT NOT NULL,
