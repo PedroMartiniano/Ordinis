@@ -39,7 +39,7 @@ model Sessao {
 }
 
 enum Estado_Patrimonio {
-  EXECELENTE
+  EXCELENTE
   OTIMO
   REGULAR
   RUIM

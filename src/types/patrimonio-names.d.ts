@@ -2,7 +2,7 @@ export interface PatrimonioNamesProps {
     id: string
     placa: string
     descricao: string
-    estado: 'EXECELENTE' | 'OTIMO' | 'REGULAR' | 'RUIM' | 'PESSIMO'
+    estado: 'EXCELENTE' | 'OTIMO' | 'REGULAR' | 'RUIM' | 'PESSIMO'
     valor: number
     origem: 'PREFEITURA' | 'NV'
     status: number
