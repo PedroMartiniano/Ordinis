@@ -59,6 +59,6 @@ export class AuthUsuarioController {
             })
         }
 
-        return res.status(200).json({ token: auth.token })
+        return res.status(200).json({ success: true, token: auth.token })
     }
 }

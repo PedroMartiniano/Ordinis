@@ -20,6 +20,10 @@ export class GetCategoriaByIdController {
         const getCategoriaById = new GetCategoriaByIdUseCase
         const categoria = await getCategoriaById.execute(id)
 
-        return res.status(200).json(categoria)
+        if (!categoria) {
+            return res.status(400).json({ success: false, data: categoria })
+        }
+
+        return res.status(200).json({ success: true, data: categoria })
     }
 }

@@ -27,7 +27,7 @@ export class DeleteCategoriaController {
         const searchPatrimonio = new SearchPatrimonioUseCase
         const patrimonio = await searchPatrimonio.execute(search)
 
-        if(patrimonio === null){
+        if (patrimonio === null) {
             return next(new AppError('Erro ao buscar patrimônios com essa categoria. Tente Novamente.'))
         }
 
@@ -42,6 +42,6 @@ export class DeleteCategoriaController {
             return next(new AppError('Ocorreu um erro ao deletar categoria', 500))
         }
 
-        return res.status(200).json(categoria)
+        return res.status(200).json({ success: true, data: categoria })
     }
 }

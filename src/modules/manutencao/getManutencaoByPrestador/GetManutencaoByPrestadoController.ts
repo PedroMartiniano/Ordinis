@@ -20,6 +20,14 @@ export class GetManutencaoByPrestadorController {
         const getManutencaoByPrestador = new GetManutencaoByPrestadorUseCase
         const manutencoes = await getManutencaoByPrestador.execute(id_prestador)
 
-        return res.status(200).json(manutencoes)
+        if (!manutencoes) {
+            return res.status(500).json({ success: false, message: 'Internal server error!' })
+        }
+
+        if (!manutencoes[0]) {
+            return res.status(400).json({ success: false, data: manutencoes })
+        }
+
+        return res.status(200).json({ success: true, data: manutencoes })
     }
 }

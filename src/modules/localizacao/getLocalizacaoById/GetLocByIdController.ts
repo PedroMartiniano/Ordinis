@@ -20,6 +20,10 @@ export class GetLocByIdController {
         const getLocById = new GetLocByIdUseCase
         const localizacao = await getLocById.execute(id)
 
-        return res.status(200).json(localizacao)
+        if (!localizacao) {
+            return res.status(400).json({ success: false, data: localizacao })
+        }
+
+        return res.status(200).json({ success: true, data: localizacao })
     }
 }

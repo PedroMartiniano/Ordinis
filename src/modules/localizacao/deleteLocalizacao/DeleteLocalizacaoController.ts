@@ -42,6 +42,6 @@ export class DeleteLocalizacaoController {
             return next(new AppError('Ocorreu um erro ao excluir a localização.', 500))
         }
 
-        return res.status(200).json(localizacao)
+        return res.status(200).json({ success: true, data: localizacao })
     }
 }
