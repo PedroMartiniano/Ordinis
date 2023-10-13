@@ -20,6 +20,10 @@ export class GetManutencaoByIdController {
         const getManutencao = new GetManutencaoByIdUseCase
         const manutencao = await getManutencao.execute(id)
 
-        return res.status(200).json(manutencao)
+        if (!manutencao) {
+            return res.status(400).json({ success: true, data: manutencao })
+        }
+
+        return res.status(200).json({ success: true, data: manutencao })
     }
 }

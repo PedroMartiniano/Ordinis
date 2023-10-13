@@ -20,6 +20,10 @@ export class GetPrestadorByIdController {
         const getPrestador = new GetPrestadorByIdUseCase
         const prestador = await getPrestador.execute(id)
 
-        return res.status(200).json(prestador)
+        if (!prestador) {
+            return res.status(400).json({ success: false, data: prestador })
+        }
+
+        return res.status(200).json({success: true, data: prestador})
     }
 }
