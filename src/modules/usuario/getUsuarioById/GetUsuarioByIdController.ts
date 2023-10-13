@@ -20,6 +20,9 @@ export class GetUsuarioByIdController {
         const getUsuarioById = new GetUsuarioByIdUseCase
         const usuario = await getUsuarioById.execute(id)
 
-        return res.status(200).send(usuario)
+        if (!usuario) {
+            return res.status(400).send({ success: false, data: usuario })
+        }
+        return res.status(200).send({ success: true, data: usuario })
     }
 }
