@@ -68,4 +68,24 @@ describe('should test all usuarios routes', () => {
                 expect(res.body.success).toBeTruthy()
             })
     })
+
+    test('should get all usuarios successfully', async () => {
+        return request(app)
+            .get('/usuario/get-all')
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get an usuario by his token', async () => {
+        return request(app)
+            .get('/usuario/get-me')
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
 })
