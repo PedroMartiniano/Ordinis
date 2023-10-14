@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 import { AppError } from "../../../errors/AppError";
-import { GetPatrimonioByPlacaUseCase } from "./GetPatrimonioByPlacaUseCase";
+import { GetPatrByPlacaEditedUseCase } from "./GetPatrByPlacaEditedUseCase";
 
 export class GetPatrimonioByPlacaController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -17,7 +17,7 @@ export class GetPatrimonioByPlacaController {
 
         const { placa } = placaPatrBody.data
 
-        const getPatrByPlaca = new GetPatrimonioByPlacaUseCase
+        const getPatrByPlaca = new GetPatrByPlacaEditedUseCase
         const patrimonio = await getPatrByPlaca.execute(placa)
 
         if (!patrimonio) {
