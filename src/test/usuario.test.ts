@@ -44,7 +44,7 @@ describe('should test all usuarios routes', () => {
             })
     })
 
-    test.skip('should edit an usuario successfully', async () => {
+    test('should edit an usuario successfully', async () => {
         const res = await request(app)
             .post('/login')
             .send({ email: usuario.email, senha: usuario.senha })
