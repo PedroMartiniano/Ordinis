@@ -11,13 +11,27 @@ export class DeleteUsuarioController {
             id: z.string()
         })
 
-        const idBody = idSchema.safeParse(req.params)
+        const idUserSchema = z.object({
+            id_usuario: z.string()
+        })
 
-        if (!idBody.success) {
+        const idToDelete = idSchema.safeParse(req.params)
+        const idUsuarioBody = idUserSchema.safeParse(req.body)
+
+        if (!idToDelete.success) {
             return next(new AppError('Parâmetro id não encontrado.'))
         }
 
-        const { id } = idBody.data
+        if (!idUsuarioBody.success) {
+            return next(new AppError('Id do usuário conectado não encontrado.'))
+        }
+
+        const { id } = idToDelete.data
+        const { id_usuario } = idUsuarioBody.data
+
+        if (id === id_usuario) {
+            return next(new AppError('Não é possível excluir o usuario da sessão conectada.'))
+        }
 
         const getUsuarioById = new GetUsuarioByIdUseCase
         const usuario = await getUsuarioById.execute(id)
@@ -39,7 +53,7 @@ export class DeleteUsuarioController {
 
         const deleteSessaoUseCase = new DeleteSessaoUseCase
         const sessaoDeleted = await deleteSessaoUseCase.execute(id)
-        
+
         if (!sessaoDeleted) {
             return next(new AppError('Algo deu errado ao desativar a sessão do usuário.'))
         }
