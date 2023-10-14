@@ -6,7 +6,7 @@ export class GetAllPatrimoniosController {
         const patrimonios = await GetAllPatrimoniosUseCase.execute()
 
         if (!patrimonios) {
-            return res.status(500).json({ success: false })
+            return res.status(500).json({ success: false, message: 'Internal server error!' })
         }
 
         if (!patrimonios[0]) {

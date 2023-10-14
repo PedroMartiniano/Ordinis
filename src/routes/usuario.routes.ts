@@ -6,6 +6,7 @@ import { DeleteUsuarioController } from "../modules/usuario/deleteUsuario/Delete
 import { EditUsuarioController } from "../modules/usuario/editUsuario/EditUsuarioController"
 import { GetMeController } from "../modules/usuario/getMe/GetMeController"
 import { EditSenhaController } from "../modules/usuario/editSenha/EditSenhaController"
+import { GetAllUsuariosController } from "../modules/usuario/getAllUsuarios/getAllUsuariosController"
 
 export const usuarioRouter = Router()
 
@@ -15,6 +16,7 @@ const deleteUsuarioController = new DeleteUsuarioController
 const editUsuarioController = new EditUsuarioController
 const getMeController = new GetMeController
 const editSenhaController = new EditSenhaController
+const getAlUsuariosController = new GetAllUsuariosController
 
 usuarioRouter.get('/get-me', (req, res, next) => {
     getMeController.handle(req, res, next)
@@ -40,4 +42,8 @@ usuarioRouter.put('/update', (req, res, next) => {
 
 usuarioRouter.delete('/delete/:id', (req, res, next) => {
     deleteUsuarioController.handle(req, res, next)
+})
+
+usuarioRouter.get('/get-all', (req, res, next) => {
+    getAlUsuariosController.handle(req, res, next)
 })

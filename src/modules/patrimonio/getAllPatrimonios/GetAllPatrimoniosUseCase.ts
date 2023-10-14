@@ -1,5 +1,3 @@
-import { Patrimonio } from "@prisma/client";
-import { Request } from "express";
 import { prisma } from "../../../lib/prisma";
 import { PatrimonioNamesProps } from "../../../types/patrimonio-names";
 
