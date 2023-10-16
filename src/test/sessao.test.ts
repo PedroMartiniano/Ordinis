@@ -13,7 +13,6 @@ describe('should test all sessao routes', () => {
             .then((res) => {
                 expect(res.body.token).toBeTypeOf('string')
             })
-
     })
 
     test('should give an error by passing a wrong body when doing login', async () => {

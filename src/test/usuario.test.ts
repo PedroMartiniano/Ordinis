@@ -59,6 +59,21 @@ describe('should test all usuarios routes', () => {
             })
     })
 
+    test('should update usuario password succssfully', async () => {
+        const res = await request(app)
+            .post('/login')
+            .send({ email: usuario.email, senha: usuario.senha })
+
+        return request(app)
+            .post('/usuario/update/password')
+            .set('authorization', `Bearer ${res.body.token}`)
+            .send({ senha_atual: usuario.senha, nova_senha: '1234567' })
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
     test('should delete an usuario successfully', async () => {
         return request(app)
             .delete(`/usuario/delete/${user_id}`)

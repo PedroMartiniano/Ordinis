@@ -17,13 +17,17 @@ export class CreateCategoriaController {
 
         const { descricao } = categoriaBody.data
 
-        const createCategoria = new CreateCategoriaUseCase
-        const categoria = await createCategoria.execute(descricao)
-
-        if(!categoria){
-            return res.status(400).json({success: false})
+        if (descricao === "" || descricao === " ") {
+            return next(new AppError('Não é possível cadastrar categoria vazia.'))
         }
 
-        return res.status(201).json({success: true, data: categoria})
+        const createCategoria = new CreateCategoriaUseCase
+        const categoria = await createCategoria.execute(descricao.trim())
+
+        if (!categoria) {
+            return res.status(400).json({ success: false })
+        }
+
+        return res.status(201).json({ success: true, data: categoria })
     }
 }

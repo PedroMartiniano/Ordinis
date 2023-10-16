@@ -17,8 +17,12 @@ export class CreateLocalizacaoController {
 
         const { descricao } = localizacaoBody.data
 
+        if (descricao === "" || descricao === " ") {
+            return next(new AppError('Não é possível cadastrar localização vazia.'))
+        }
+
         const createLocalizacao = new CreateLocalizacaoUseCase
-        const localizacao = await createLocalizacao.execute(descricao)
+        const localizacao = await createLocalizacao.execute(descricao.trim())
 
         if (!localizacao) {
             return res.status(400).json({ success: false })
