@@ -32,7 +32,7 @@ export class EditPatrimonioController {
             return next(new AppError('Id patrimônio faltando!'))
         }
 
-        const {
+        let {
             placa,
             descricao,
             estado,
@@ -41,6 +41,8 @@ export class EditPatrimonioController {
             id_localizacao,
             id_categoria
         } = patrimonioBody.data
+
+        placa = placa.trim().toUpperCase()
 
         const { id } = idPatrimonioBody.data
 

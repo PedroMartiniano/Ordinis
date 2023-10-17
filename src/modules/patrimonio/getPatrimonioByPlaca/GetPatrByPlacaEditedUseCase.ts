@@ -32,7 +32,13 @@ export class GetPatrByPlacaEditedUseCase {
                             descricao: true
                         }
                     },
-                    id_usuario: true
+                    usuario: {
+                        select: {
+                            id: true,
+                            nome: true,
+                            sobrenome: true
+                        }
+                    }
                 }
             })
 

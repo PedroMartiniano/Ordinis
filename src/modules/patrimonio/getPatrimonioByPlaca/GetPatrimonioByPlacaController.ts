@@ -15,7 +15,9 @@ export class GetPatrimonioByPlacaController {
             return next(new AppError('Placa do patrimônio faltando.'))
         }
 
-        const { placa } = placaPatrBody.data
+        let { placa } = placaPatrBody.data
+
+        placa = placa.trim().toUpperCase()
 
         const getPatrByPlaca = new GetPatrByPlacaEditedUseCase
         const patrimonio = await getPatrByPlaca.execute(placa)
