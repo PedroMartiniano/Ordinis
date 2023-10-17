@@ -5,7 +5,7 @@ export function searchParams(key: string[], value: any[]) {
         switch (key[i]) {
             case 'placa':
                 searchParam.placa = {
-                    equals: value[i]
+                    contains: value[i]
                 }
                 break
             case 'descricao':

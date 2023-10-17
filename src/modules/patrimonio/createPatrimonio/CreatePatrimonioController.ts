@@ -27,7 +27,7 @@ export class CreatePatrimonioController {
             return next(new AppError('Informações inválidas.'))
         }
 
-        const {
+        let {
             placa,
             descricao,
             estado,
@@ -38,6 +38,8 @@ export class CreatePatrimonioController {
             id_categoria,
             id_usuario
         } = patrimonioBody.data
+
+        placa = placa.trim().toUpperCase()
 
         const getPatrimonioByPlaca = new GetPatrimonioByPlacaUseCase
         const ispatrPlacaExists = await getPatrimonioByPlaca.execute(placa)
@@ -74,7 +76,7 @@ export class CreatePatrimonioController {
 
         const createPatrimonio = new CreatePatrimonioUseCase
         const patrimonio = await createPatrimonio.execute({
-            placa: placa.trim(),
+            placa,
             descricao: descricao.trim(),
             estado,
             valor,
