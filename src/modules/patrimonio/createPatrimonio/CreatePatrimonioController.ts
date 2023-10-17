@@ -74,8 +74,8 @@ export class CreatePatrimonioController {
 
         const createPatrimonio = new CreatePatrimonioUseCase
         const patrimonio = await createPatrimonio.execute({
-            placa,
-            descricao,
+            placa: placa.trim(),
+            descricao: descricao.trim(),
             estado,
             valor,
             origem,

@@ -62,8 +62,8 @@ export class EditPatrimonioController {
 
         const editPatrimonioUseCase = new EditPatrimoniouseCase
         const patrimonio = await editPatrimonioUseCase.execute(id, {
-            placa,
-            descricao,
+            placa: placa.trim(),
+            descricao: descricao.trim(),
             estado,
             valor,
             origem,
