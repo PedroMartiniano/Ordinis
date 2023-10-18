@@ -94,7 +94,7 @@ describe('should test all usuarios routes', () => {
             })
     })
 
-    test('should get an usuario by his token', async () => {
+    test('should get an usuario by his token successfully', async () => {
         return request(app)
             .get('/usuario/get-me')
             .set('authorization', `Bearer ${token}`)

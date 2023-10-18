@@ -4,6 +4,7 @@ import { app } from "../app";
 
 describe('should test all localizacao routes', () => {
     let token: string
+    let id_loc: string
 
     beforeAll(async () => {
         const res = await request(app)
@@ -19,6 +20,37 @@ describe('should test all localizacao routes', () => {
             .set('authorization', `Bearer ${token}`)
             .send({ descricao: `Loc-Test-${Math.ceil(Math.random() * 1000)}` })
             .expect(201)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+                id_loc = res.body.data.id
+            })
+    })
+
+    test('should get a localizacao by his id successfully', async () => {
+        return request(app)
+            .get(`/localizacao/get/${id_loc}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get all localizacoes successfully', async () => {
+        return request(app)
+            .get(`/localizacao/get-all`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should delete a localizacao successfully', async () => {
+        return request(app)
+            .delete(`/localizacao/delete/${id_loc}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
             .then((res) => {
                 expect(res.body.success).toBeTruthy()
             })

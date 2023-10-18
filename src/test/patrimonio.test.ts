@@ -1,12 +1,11 @@
 import { describe, test, beforeAll, expect } from 'vitest'
 import request from 'supertest'
 import { app } from '../app'
-import { AppError } from '../errors/AppError'
 
 describe('should test all patrimonios routes', () => {
     let token: string
     const patrimonio = {
-        placa: "PC-ERROR",
+        placa: `PC-TESTE-${Math.ceil(Math.random() * 1000)}`,
         descricao: "computador suit test",
         estado: "EXCELENTE",
         valor: 1999.90,
@@ -26,17 +25,6 @@ describe('should test all patrimonios routes', () => {
     })
 
     test('should create a patrimônio successfully', async () => {
-        const patrimonio = {
-            placa: `PC-TESTE-${Math.ceil(Math.random() * 1000)}`,
-            descricao: "computador suit test",
-            estado: "EXCELENTE",
-            valor: 1999.90,
-            origem: "PREFEITURA",
-            data_entrada: Date.now(),
-            id_localizacao: "14b6815a-b0e5-4e92-b155-43a7cf3adac7",
-            id_categoria: "d53834cf-e33d-4a3f-8af4-e4a95a6a2961"
-        }
-
         return request(app)
             .post('/patrimonio/create')
             .set('authorization', `Bearer ${token}`)
@@ -48,18 +36,78 @@ describe('should test all patrimonios routes', () => {
             })
     })
 
-    test('should give an error by trying to create a patrimonio without a access token', async () => {
+    test('should update a patrimônio successfully', async () => {
         return request(app)
-            .post('/patrimonio/create')
-            .send(patrimonio)
-            .expect(401)
-            .catch((res) => {
-                expect(res).toBeInstanceOf(AppError)
+            .put(`/patrimonio/update/${id_patr}`)
+            .set('authorization', `Bearer ${token}`)
+            .send({
+                ...patrimonio,
+                descricao: 'Computador Editado'
+            })
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
             })
     })
 
-    test('should update a patrimônio successfully', async () => {
+    test('should get a patrimonio by his id successfully', async () => {
         return request(app)
-            .put(`/patrimonio/update/password`)
+            .get(`/patrimonio/get/${id_patr}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
     })
-})
+
+    test('should get all patrimônios successfully', async () => {
+        return request(app)
+            .get('/patrimonio/get-all')
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get a patrimonio with objects by his id successfully', async () => {
+        return request(app)
+            .get(`/patrimonio/get-names/${id_patr}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get a patrimonio by his placa successfully', async () => {
+        return request(app)
+            .get(`/patrimonio/get-placa/${patrimonio.placa}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should search patrimonios by param successfully', async () => {
+        return request(app)
+            .get(`/patrimonio/search?id_categoria=${patrimonio.id_categoria}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should soft delete a patrimonio by his id successfully', async () => {
+        return request(app)
+            .delete(`/patrimonio/baixa/${id_patr}`)
+            .set('authorization', `Bearer ${token}`)
+            .send({ data_saida: Date.now(), resp_entrega: 'Lucas Rodrigues', resp_retirada: 'Vinicius Cintra' })
+            .expect(201)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+}) 
