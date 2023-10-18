@@ -42,9 +42,12 @@ export class GetAllPatrimoniosUseCase {
                         select: {
                             id: true,
                             nome: true,
-                            sobrenome: true       
+                            sobrenome: true
                         }
                     }
+                },
+                orderBy: {
+                    data_entrada: 'desc'
                 }
             })
 

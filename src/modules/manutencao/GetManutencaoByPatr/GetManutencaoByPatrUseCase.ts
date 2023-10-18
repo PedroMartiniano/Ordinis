@@ -7,6 +7,9 @@ export class GetManutencaoByIdPatrUseCase {
             const manutencoes = await prisma.manutencao.findMany({
                 where: {
                     id_patrimonio
+                },
+                orderBy: {
+                    data_fim: 'asc'
                 }
             })
 
