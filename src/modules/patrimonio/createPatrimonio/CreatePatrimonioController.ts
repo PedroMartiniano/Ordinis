@@ -41,6 +41,10 @@ export class CreatePatrimonioController {
 
         placa = placa.trim().toUpperCase()
 
+        if (placa.length < 5 || !/^[A-Z0-9.-]+$/.test(placa)) {
+            return next(new AppError('Placa com menos de 5 caracteres ou caracteres inválidos.'))
+        }
+
         const getPatrimonioByPlaca = new GetPatrimonioByPlacaUseCase
         const ispatrPlacaExists = await getPatrimonioByPlaca.execute(placa)
 

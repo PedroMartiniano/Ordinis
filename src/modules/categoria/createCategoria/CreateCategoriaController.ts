@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 import { AppError } from "../../../errors/AppError";
 import { CreateCategoriaUseCase } from "./CreateCategoriaUseCase";
+import { GetCategoriaByDescricaoUseCase } from "../getCategoriaByDescricao/GetCategoriaByDescricaoUseCase";
 
 export class CreateCategoriaController {
     async handle(req: Request, res: Response, next: NextFunction) {
@@ -15,14 +16,23 @@ export class CreateCategoriaController {
             return next(new AppError('Informações inválidas.'))
         }
 
-        const { descricao } = categoriaBody.data
+        let { descricao } = categoriaBody.data
+
+        descricao = descricao.trim()
 
         if (descricao === "" || descricao === " ") {
             return next(new AppError('Não é possível cadastrar categoria vazia.'))
         }
 
+        const getCategoriaByDescricao = new GetCategoriaByDescricaoUseCase
+        const categoriaDescricao = await getCategoriaByDescricao.execute(descricao)
+
+        if (categoriaDescricao) {
+            return next(new AppError('Nome já existente.'))
+        }
+
         const createCategoria = new CreateCategoriaUseCase
-        const categoria = await createCategoria.execute(descricao.trim())
+        const categoria = await createCategoria.execute(descricao)
 
         if (!categoria) {
             return res.status(400).json({ success: false })
