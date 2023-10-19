@@ -50,6 +50,17 @@ describe('should test all patrimonios routes', () => {
             })
     })
 
+    test('should update patrimônio localizacao successfully', async () => {
+        return request(app)
+            .patch(`/patrimonio/update-loc/${id_patr}`)
+            .set('authorization', `Bearer ${token}`)
+            .send({ id_localizacao: '214ce654-4738-4a5e-b618-580f1ee4e499' })
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
     test('should get a patrimonio by his id successfully', async () => {
         return request(app)
             .get(`/patrimonio/get/${id_patr}`)
@@ -92,7 +103,7 @@ describe('should test all patrimonios routes', () => {
 
     test('should search patrimonios by param successfully', async () => {
         return request(app)
-            .get(`/patrimonio/search?id_categoria=${patrimonio.id_categoria}`)
+            .get(`/patrimonio/search?categoria=${patrimonio.id_categoria}`)
             .set('authorization', `Bearer ${token}`)
             .expect(200)
             .then((res) => {

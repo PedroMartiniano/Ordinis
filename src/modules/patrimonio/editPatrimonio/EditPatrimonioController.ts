@@ -53,6 +53,10 @@ export class EditPatrimonioController {
             return next(new AppError('Id patrimonio não encontrado.'))
         }
 
+        if (patrimonioId.status === 0) {
+            return next(new AppError('Não é possível editar patrimônio baixado.'))
+        }
+
         const getPatrimonioByPlaca = new GetPatrimonioByPlacaUseCase
         const patrimonioPlaca = await getPatrimonioByPlaca.execute(placa)
 

@@ -8,6 +8,7 @@ import { GetAllPatrimoniosController } from "../modules/patrimonio/getAllPatrimo
 import { SearchPatrimonioController } from "../modules/patrimonio/searchPatrimonio/SearchPatrimonioController";
 import { GetPatrByIdEditedController } from "../modules/patrimonio/getPatrimonioByIdEdited/GetPatrimonioByIdEditedController";
 import { GetPatrimonioByPlacaController } from "../modules/patrimonio/getPatrimonioByPlaca/GetPatrimonioByPlacaController";
+import { EditLocalizacaoPatrController } from "../modules/patrimonio/editLocalizacaoPatr/EditLocalizacaoController";
 
 export const patrimonioRoutes = Router()
 
@@ -19,6 +20,7 @@ const getAllPatrimoniosController = new GetAllPatrimoniosController
 const searchPatrimonioController = new SearchPatrimonioController
 const getPatrByIdEditedController = new GetPatrByIdEditedController
 const getPatrByPlacaController = new GetPatrimonioByPlacaController
+const editLocalizacaoPatrController = new EditLocalizacaoPatrController
 
 patrimonioRoutes.post('/create', (req, res, next) => {
     createPatrimonioController.handle(req, res, next)
@@ -26,6 +28,10 @@ patrimonioRoutes.post('/create', (req, res, next) => {
 
 patrimonioRoutes.put('/update/:id', (req, res, next) => {
     editPatrimonioController.handle(req, res, next)
+})
+
+patrimonioRoutes.patch('/update-loc/:id', (req, res, next) => {
+    editLocalizacaoPatrController.handle(req, res, next)
 })
 
 patrimonioRoutes.get('/get-all', (req, res, next) => {
