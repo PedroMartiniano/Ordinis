@@ -24,11 +24,10 @@ export class CreateLocalizacaoController {
             return next(new AppError('Não é possível cadastrar localização vazia.'))
         }
 
-        const getLocalizacaoByDescricao = new GetLocalizacaoByDescricaoUseCase
-        const localizacaoDescricao = await getLocalizacaoByDescricao.execute(descricao)
+        const localizacaoDescricao = await GetLocalizacaoByDescricaoUseCase.execute(descricao)
 
         if (localizacaoDescricao) {
-            return next(new AppError('Nome já existente.'))
+            return next(new AppError('Localização já existente.'))
         }
 
         const createLocalizacao = new CreateLocalizacaoUseCase

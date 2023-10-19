@@ -24,11 +24,10 @@ export class CreateCategoriaController {
             return next(new AppError('Não é possível cadastrar categoria vazia.'))
         }
 
-        const getCategoriaByDescricao = new GetCategoriaByDescricaoUseCase
-        const categoriaDescricao = await getCategoriaByDescricao.execute(descricao)
+        const categoriaDescricao = await GetCategoriaByDescricaoUseCase.execute(descricao)
 
         if (categoriaDescricao) {
-            return next(new AppError('Nome já existente.'))
+            return next(new AppError('Categoria já existente.'))
         }
 
         const createCategoria = new CreateCategoriaUseCase
