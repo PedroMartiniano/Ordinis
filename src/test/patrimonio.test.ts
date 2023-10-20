@@ -101,6 +101,16 @@ describe('should test all patrimonios routes', () => {
             })
     })
 
+    test('should get all "RUIM" e "PESSIMO" patrimônios successfully', async () => {
+        return request(app)
+            .get(`/patrimonio/get-all-ruins`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
     test('should search patrimonios by param successfully', async () => {
         return request(app)
             .get(`/patrimonio/search?categoria=${patrimonio.id_categoria}`)

@@ -7,6 +7,7 @@ import { BaixaManutencaoController } from "../modules/manutencao/baixaManutencao
 import { DeleteManutencaoController } from "../modules/manutencao/deleteManutencao/DeleteManutencaoController";
 import { GetAllManutencoesController } from "../modules/manutencao/getAllManutencoes/GetAllManutencoesController";
 import { ensureAuthPermissao } from "../middlewares/ensureAuthPermissao";
+import { GetManutencoesAtivasController } from "../modules/manutencao/GetManutencoesAtivas/GetManutencoesAtivasController";
 
 export const manutencaoRoutes = Router()
 
@@ -17,6 +18,7 @@ const getManutencaoByPrestadorController = new GetManutencaoByPrestadorControlle
 const baixaManutencaoController = new BaixaManutencaoController
 const deleteManutencaoController = new DeleteManutencaoController
 const getAllManutencoesController = new GetAllManutencoesController
+const getManutencoesAtivasController = new GetManutencoesAtivasController
 
 manutencaoRoutes.post('/create/:id_patrimonio', (req, res, next) => {
     createManutencaoController.handle(req, res, next)
@@ -40,6 +42,10 @@ manutencaoRoutes.get('/get/prestador/:id_prestador', (req, res, next) => {
 
 manutencaoRoutes.get('/get-all', (req, res, next) => {
     getAllManutencoesController.handle(req, res, next)
+})
+
+manutencaoRoutes.get('/get-ativas', (req, res, next) => {
+    getManutencoesAtivasController.handle(req, res, next)
 })
 
 manutencaoRoutes.delete('/delete/:id', ensureAuthPermissao('ADMINISTRADOR'), (req, res, next) => {

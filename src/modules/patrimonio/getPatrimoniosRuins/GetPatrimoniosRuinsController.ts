@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { GetAllPatrimoniosUseCase } from "./GetAllPatrimoniosUseCase";
+import { GetPatrimoniosRuinsUseCase } from "./GetPatrimoniosRuinsUseCase";
 
-export class GetAllPatrimoniosController {
+export class GetPatrimoniosRuinsController {
     async handle(req: Request, res: Response, next: NextFunction) {
-        const patrimonios = await GetAllPatrimoniosUseCase.execute()
+        const patrimonios = await GetPatrimoniosRuinsUseCase.execute()
 
         if (!patrimonios) {
             return res.status(500).json({ success: false, message: 'Erro interno do servidor.' })

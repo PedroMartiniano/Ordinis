@@ -2,10 +2,10 @@ import { Manutencao } from "@prisma/client";
 import { prisma } from "../../../lib/prisma";
 import { ManutencaoGetProps } from "../../../types/manutencao-get";
 
-export class GetManutencaoByIdUseCase {
-    async execute(id: string): Promise<ManutencaoGetProps | null> {
+export class GetManutencoesAtivasUseCase {
+    static async execute(): Promise<ManutencaoGetProps[] | null> {
         try {
-            const manutencao = await prisma.manutencao.findUnique({
+            const manutencoes = await prisma.manutencao.findMany({
                 select: {
                     id: true,
                     descricao: true,
@@ -29,11 +29,14 @@ export class GetManutencaoByIdUseCase {
                     id_usuario: true
                 },
                 where: {
-                    id
+                    status: 1
+                },
+                orderBy: {
+                    data_fim: 'asc'
                 }
             })
 
-            return manutencao
+            return manutencoes
         } catch {
             return null
         }

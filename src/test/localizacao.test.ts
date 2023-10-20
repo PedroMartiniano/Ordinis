@@ -5,6 +5,9 @@ import { app } from "../app";
 describe('should test all localizacao routes', () => {
     let token: string
     let id_loc: string
+    let localizacao = {
+        descricao: `Loc-Test-${Math.ceil(Math.random() * 1000)}`
+    }
 
     beforeAll(async () => {
         const res = await request(app)
@@ -18,7 +21,7 @@ describe('should test all localizacao routes', () => {
         return request(app)
             .post('/localizacao/create')
             .set('authorization', `Bearer ${token}`)
-            .send({ descricao: `Loc-Test-${Math.ceil(Math.random() * 1000)}` })
+            .send(localizacao)
             .expect(201)
             .then((res) => {
                 expect(res.body.success).toBeTruthy()
@@ -30,6 +33,17 @@ describe('should test all localizacao routes', () => {
         return request(app)
             .get(`/localizacao/get/${id_loc}`)
             .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should edit a localizacao successfully', async () => {
+        return request(app)
+            .put(`/localizacao/update/${id_loc}`)
+            .set('authorization', `Bearer ${token}`)
+            .send({ descricao: `Edited-${localizacao.descricao}` })
             .expect(200)
             .then((res) => {
                 expect(res.body.success).toBeTruthy()
