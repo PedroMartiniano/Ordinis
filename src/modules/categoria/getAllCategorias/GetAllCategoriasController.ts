@@ -21,11 +21,15 @@ export class GetAllCategoriasController {
         }
 
         if (Array.isArray(categorias)) {
+
             if (!categorias[0]) {
                 return res.status(400).send({ success: false, data: categorias })
             }
+            
+            return res.status(200).json({ success: true, data: categorias })
         }
+        
+        return res.status(200).json({ success: true, data: [categorias] })
 
-        return res.status(200).json({ success: true, data: categorias })
     }
 }

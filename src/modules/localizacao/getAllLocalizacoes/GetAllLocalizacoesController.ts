@@ -21,11 +21,15 @@ export class GetAllLocalizacoesController {
         }
 
         if (Array.isArray(localizacoes)) {
+
             if (!localizacoes[0]) {
                 return res.status(400).json({ success: false, data: localizacoes })
             }
+            
+            return res.status(200).json({ success: true, data: localizacoes })
         }
 
-        return res.status(200).json({ success: true, data: localizacoes })
+        return res.status(200).json({ success: true, data: [localizacoes] })
+
     }
 }
