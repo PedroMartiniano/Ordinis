@@ -47,4 +47,64 @@ describe('Should test all manutenção routes', () => {
                 expect(res.body.success).toBeTruthy()
             })
     })
+
+    test('should get a manutenção by id successfully', async () => {
+        return request(app)
+            .get(`/manutencao/get/${id_man}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get manutenções by id patrimonio successfully', async () => {
+        return request(app)
+            .get(`/manutencao/get/patr/${id_patrimonio}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get manutenções by id prestador successfully', async () => {
+        return request(app)
+            .get(`/manutencao/get/prestador/${id_prestador}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get all manutencões successfully', async () => {
+        return request(app)
+            .get(`/manutencao/get-all`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should get all manutenções activateds successfully', async () => {
+        return request(app)
+            .get(`/manutencao/get-ativas`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
+    test('should delete a manutencao successfully', async () => {
+        return request(app)
+            .delete(`/manutencao/delete/${id_man}`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
 })
