@@ -46,6 +46,16 @@ describe('should test all categorias routes', () => {
             })
     })
 
+    test('should get a categoria with a query by descricao successfully', async () => {
+        return request(app)
+            .get(`/categoria/get-all?descricao=Eletrônicos`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
     test('should delete a categoria successfully', async () => {
         return request(app)
             .delete(`/categoria/delete/${id_cat}`)

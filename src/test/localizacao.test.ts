@@ -60,6 +60,16 @@ describe('should test all localizacao routes', () => {
             })
     })
 
+    test('should get a localizacão with a query by descricao successfully', async () => {
+        return request(app)
+            .get(`/localizacao/get-all?descricao=Sala 01`)
+            .set('authorization', `Bearer ${token}`)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.success).toBeTruthy()
+            })
+    })
+
     test('should delete a localizacao successfully', async () => {
         return request(app)
             .delete(`/localizacao/delete/${id_loc}`)
