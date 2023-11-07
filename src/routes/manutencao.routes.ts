@@ -32,7 +32,7 @@ manutencaoRoutes.get('/get/:id', (req, res, next) => {
     getManutencaoByIdController.handle(req, res, next)
 })
 
-manutencaoRoutes.get('/get/patr/:id_patrimonio', (req, res, next) => {
+manutencaoRoutes.get('/get/patr/:placa', (req, res, next) => {
     getManutecoesByIdPatrController.handle(req, res, next)
 })
 

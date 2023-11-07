@@ -2,23 +2,31 @@ import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 import { AppError } from "../../../errors/AppError";
 import { GetManutencaoByIdPatrUseCase } from "./GetManutencaoByPatrUseCase";
+import { GetPatrimonioByPlacaUseCase } from "../../patrimonio/getPatrimonioByPlaca/GetPatrimonioByPlacaUseCase";
 
 export class GetManutencaoByPatrController {
     async handle(req: Request, res: Response, next: NextFunction) {
-        const idPatrSchema = z.object({
-            id_patrimonio: z.string()
+        const placaPatrSchema = z.object({
+            placa: z.string()
         })
 
-        const idPatrParam = idPatrSchema.safeParse(req.params)
+        const placaPatrParam = placaPatrSchema.safeParse(req.params)
 
-        if (!idPatrParam.success) {
+        if (!placaPatrParam.success) {
             return next(new AppError('Informação id patrimonio faltando.'))
         }
 
-        const { id_patrimonio } = idPatrParam.data
+        const { placa } = placaPatrParam.data
+
+        const getPatrimonioByPlaca = new GetPatrimonioByPlacaUseCase
+        const patrimonio = await getPatrimonioByPlaca.execute(placa)
+
+        if (!patrimonio) {
+            return next(new AppError('Patrimônio não encontrado.'))
+        }
 
         const getManutencoesByIdPatr = new GetManutencaoByIdPatrUseCase
-        const manutencoes = await getManutencoesByIdPatr.execute(id_patrimonio)
+        const manutencoes = await getManutencoesByIdPatr.execute(patrimonio.id)
 
         if (!manutencoes) {
             return res.status(500).json({ success: false, message: 'Internal server error!' })
