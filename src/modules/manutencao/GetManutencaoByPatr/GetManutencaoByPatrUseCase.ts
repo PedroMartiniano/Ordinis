@@ -32,7 +32,7 @@ export class GetManutencaoByIdPatrUseCase {
                     id_patrimonio
                 },
                 orderBy: {
-                    data_fim: 'asc'
+                    data_fim: 'desc'
                 }
             })
 

@@ -30,6 +30,9 @@ export class GetManutencaoByPrestadorUseCase {
                 },
                 where: {
                     id_prestador
+                },
+                orderBy: {
+                    data_fim: 'desc'
                 }
             })
 
