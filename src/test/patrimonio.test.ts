@@ -11,8 +11,8 @@ describe('should test all patrimonios routes', () => {
         valor: 1999.90,
         origem: "PREFEITURA",
         data_entrada: Date.now(),
-        id_localizacao: "14b6815a-b0e5-4e92-b155-43a7cf3adac7",
-        id_categoria: "d53834cf-e33d-4a3f-8af4-e4a95a6a2961"
+        id_localizacao: "bd2484f9-b185-4059-b468-59c230b41848",
+        id_categoria: "01542cc8-5b88-49a8-9571-13bceb0eec8c"
     }
     let id_patr: string
 
@@ -54,7 +54,7 @@ describe('should test all patrimonios routes', () => {
         return request(app)
             .patch(`/patrimonio/update-loc/${id_patr}`)
             .set('authorization', `Bearer ${token}`)
-            .send({ id_localizacao: '214ce654-4738-4a5e-b618-580f1ee4e499' })
+            .send({ id_localizacao: '8b61eaf1-1be6-4d5e-8568-412ff8579a13' })
             .expect(200)
             .then((res) => {
                 expect(res.body.success).toBeTruthy()

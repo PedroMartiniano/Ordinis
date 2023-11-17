@@ -3,8 +3,8 @@ import request from "supertest";
 import { app } from "../app";
 
 describe('Should test all manutenção routes', () => {
-    const id_prestador: string = '25d9d473-e260-440b-b131-07b9d71d473a'
-    const id_patrimonio: string = '24c39139-3531-4f14-a54d-352ae488b73f'
+    const id_prestador: string = '48ca6878-6fa1-4261-a327-e8064dbb8f4f'
+    const id_patrimonio: string = '4f2f6eea-8f77-48bc-a06d-46b09654135e'
 
     const manutencao = {
         descricao: 'Manutenção teste automatizado.',
@@ -58,9 +58,9 @@ describe('Should test all manutenção routes', () => {
             })
     })
 
-    test('should get manutenções by id patrimonio successfully', async () => {
+    test('should get manutenções by Placa patrimonio successfully', async () => {
         return request(app)
-            .get(`/manutencao/get/patr/${id_patrimonio}`)
+            .get(`/manutencao/get/patr/PC-0001`)
             .set('authorization', `Bearer ${token}`)
             .expect(200)
             .then((res) => {
